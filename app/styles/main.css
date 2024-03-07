@@ -1,0 +1,78 @@
+:root {
+    ---width-sm: 576px;
+    ---width-md: 768px;
+    ---width-lg: 992px;
+    ---width-xl: 1200px;
+    ---width-xxl: 1400px;
+
+    ---color-midnight-blue: #282D34;
+    ---color-charcoal: #00101D;
+    ---color-black-stone: #1C1D24;
+    ---color-twilight-noir: #242424;
+    ---color-slate-grey: #333333;
+    ---color-shadow-slate: #1A1A1A;
+
+    ---header-bg-color: #0099CC;
+    ---header-accent-color: #E6E6FA;
+    ---body-bg-color: #F5F5F5;
+    ---body-text-color: #333333;
+    ---body-anchor-color: #336699;
+    ---aside-bg-color: #E6E6FA;
+    ---aside-border-color: #336699;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    min-width: 100vw;
+    max-width: 100vw;
+    min-height: 100vh;
+    background-color: var(---body-bg-color);
+}
+
+header {
+    background-color: var(---header-bg-color);
+    color: var(---header-accent-color);
+}
+
+#book-manager {
+    top: 60px;
+}
+
+#add-book-toggle {
+    background-color: var(---aside-border-color);
+    height: 36px;
+    width: 36px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+
+.form-container {
+    background-color: var(---aside-border-color);
+    width: 60vh;
+}
+
+.zindex-1 {
+    z-index: 10000;
+}
+
+.zindex-2 {
+    z-index: 20000;
+}
+
+.bookself {
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
