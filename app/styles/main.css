@@ -28,4 +28,18 @@
 .uncomplete-book-container {
     max-height: calc(100vh - var(---height-without-content-mobile));
     overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book-card {
+    height: 150px;
+    min-width: 330px;
+    background-color: var(---aside-bg-color);
+    flex-grow: 1 !important;
+}
+
+.book-card figcaption {
+    max-width: 80px;
+    max-height: 120px;
 }
