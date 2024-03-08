@@ -161,6 +161,7 @@ function sanitizeInput(inputValue) {
     }
 }
 
+// Komentar khusus/sengaja tidak saya hapus karena untuk bahan saya belajar
 function cleanText(inputText) {
     // Membersihkan kode HTML - source W3School
     let cleanedHTML = inputText.replace(/<[^>]*>/g, '');
