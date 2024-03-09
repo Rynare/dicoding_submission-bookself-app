@@ -51,13 +51,13 @@ async function findBookByTitle(title) {
 
 function findCompleteBook(obj = null) {
     const books = obj ?? getBooks();
-    const foundBooks = books.filter(book => book.isComplete === 'true');
+    const foundBooks = books.filter(book => (book.isComplete === 'true' || book.isComplete == true));
     return { total: foundBooks.length, datas: foundBooks };
 }
 
 function findUnCompleteBook(obj = null) {
     const books = obj ?? getBooks();
-    const foundBooks = books.filter(book => book.isComplete === 'false');
+    const foundBooks = books.filter(book => (book.isComplete === 'false' || data.isComplete === false));
     return { total: foundBooks.length, datas: foundBooks };
 }
 

@@ -43,15 +43,15 @@ function runNewBookSubmitEvent() {
         addBook({
             'title': sanitizeInput(title),
             'author': sanitizeInput(author),
-            'year': sanitizeInput(year),
-            'isComplete': sanitizeInput(isComplete),
+            'year': parseInt(sanitizeInput(year)),
+            'isComplete': sanitizeInput(isComplete) === 'true',
             'cover': sanitizeInput(cover),
         })
 
         const searchBar = document.querySelector('#search-book')
 
         if (isEmpty(getQueryParameter('search-book')) || isEmpty(sanitizeInput(searchBar.value)) || (sanitizeInput(title).includes(sanitizeInput(searchBar.value)) || sanitizeInput(title).includes(sanitizeInput(getQueryParameter('search-book'))))) {
-            if (isComplete == 'true') {
+            if (isComplete == 'true' || isComplete == true) {
                 document.querySelector('#complete-book-value').click()
             } else {
                 document.querySelector('#uncomplete-book-value').click()
@@ -118,7 +118,7 @@ function runSearchBarEvent() {
                 unCompleteValue.innerText = datas.uncomplete
                 CompleteValue.innerText = datas.complete
                 results.forEach(data => {
-                    if (data.isComplete === 'true') {
+                    if (data.isComplete === 'true' || data.isComplete === true) {
                         new bookCard(CompleteBookself, data).init()
                     } else {
                         new bookCard(unCompleteBookself, data).init()
@@ -157,8 +157,8 @@ function runUpdateBookSubmitEvent() {
         updateBook(id, {
             'title': sanitizeInput(title),
             'author': sanitizeInput(author),
-            'year': sanitizeInput(year),
-            'isComplete': sanitizeInput(isComplete),
+            'year': parseInt(sanitizeInput(year)),
+            'isComplete': sanitizeInput(isComplete) === 'true',
             'cover': sanitizeInput(cover),
         })
         updateBookForm.querySelector('button[type=reset]').click()
@@ -166,7 +166,7 @@ function runUpdateBookSubmitEvent() {
         const searchBar = document.querySelector('#search-book')
 
         if (isEmpty(getQueryParameter('search-book')) || isEmpty(sanitizeInput(searchBar.value)) || (sanitizeInput(title).includes(sanitizeInput(searchBar.value)) || sanitizeInput(title).includes(sanitizeInput(getQueryParameter('search-book'))))) {
-            if (isComplete == 'true') {
+            if (isComplete == 'true' || isComplete == true) {
                 document.querySelector('#complete-book-value').click()
             } else {
                 document.querySelector('#uncomplete-book-value').click()
@@ -248,7 +248,7 @@ function setupRemoveBookModal(element) {
     target.querySelector('#author-delete').innerText = ': ' + datas.author
     target.querySelector('#year-delete').innerText = ': ' + datas.year
     target.querySelector('img').src = datas.cover ?? ''
-    target.querySelector('#isComplete-delete').innerText = datas.isComplete == 'true' ? ': ' + 'Sudah Dibaca!' : ': ' + 'Belum dibaca!'
+    target.querySelector('#isComplete-delete').innerText = (datas.isComplete == 'true' || datas.isComplete == true) ? ': ' + 'Sudah Dibaca!' : ': ' + 'Belum dibaca!'
 }
 
 function setBookshelfVisibility(element) {
