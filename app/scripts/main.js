@@ -10,7 +10,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (!isEmpty(currentSearchQuery)) {
         document.querySelector('form #search-book').value = currentSearchQuery
-        document.querySelector('header button#search-book-btn').click()
+    }
+    document.querySelector('header button#search-book-btn').click()
+    if (sessionStorage.getItem('checkpoint') == '.uncomplete-book-container') {
+        document.querySelector('#uncomplete-book-value').click()
+    } else {
+        document.querySelector('#complete-book-value').click()
     }
 
 })
@@ -59,9 +64,6 @@ function runSearchBarEvent() {
     })
 
     searchBtn.addEventListener('click', () => {
-        if (isEmpty(searchBar.value)) {
-            return
-        }
         const input = sanitizeInput(searchBar.value)
         const unCompleteBookself = document.querySelector('.uncomplete-book-container')
         const CompleteBookself = document.querySelector('.complete-book-container')
@@ -90,14 +92,14 @@ function runSearchBarEvent() {
                         new bookCard(unCompleteBookself, data).init()
                     }
                 });
-                if (datas.complete >= 1) {
-                    if (document.querySelector('.accordion-button.collapsed #complete-value')) {
-                        CompleteValue.click()
-                    }
-                } else if (datas.uncomplete >= 1) {
-                    if (document.querySelector('.accordion-button.collapsed #uncomplete-value')) {
+                if (sessionStorage.getItem('checkpoint').includes('uncomplete') && datas.uncomplete >= 1) {
+                    unCompleteValue.click()
+                } else {
+                    if (datas.complete <= 0 && datas.uncomplete >= 1) {
                         unCompleteValue.click()
+                        return
                     }
+                    CompleteValue.click()
                 }
             }
         })
@@ -181,4 +183,34 @@ function isImageUrl(url) {
 function getQueryParameter(parameterName) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(parameterName);
+}
+
+function setupRemoveBookModal(element) {
+    const element_target_id = element.getAttribute('data-bs-target')
+    const target = document.querySelector(element_target_id)
+    const target_btn = target.querySelector('.modal-footer button.btn-danger')
+
+    const datas = JSON.parse(element.getAttribute('data-book-json'))
+
+    target_btn.setAttribute('data-book-id', element.getAttribute('data-book-id'))
+    target.querySelector('#title-delete').innerText = ': ' + datas.title
+    target.querySelector('#author-delete').innerText = ': ' + datas.author
+    target.querySelector('#year-delete').innerText = ': ' + datas.year
+    target.querySelector('img').src = datas.cover ?? ''
+    target.querySelector('#isComplete-delete').innerText = datas.isComplete == 'true' ? ': ' + 'Sudah Dibaca!' : ': ' + 'Belum dibaca!'
+}
+
+function setBookshelfVisibility(element) {
+    const target_element = document.querySelector(element.getAttribute('ry-target-bookshelf'))
+    const target_sibling_element = target_element.nextElementSibling ?? target_element.previousElementSibling
+
+    sessionStorage.setItem('checkpoint', element.getAttribute('ry-target-bookshelf'))
+
+    element.classList.remove('border-secondary')
+    element.classList.add('border-primary')
+    element.nextElementSibling ?? element.previousElementSibling.classList.add('border-secondary')
+    element.previousElementSibling ?? element.nextElementSibling.classList.add('border-secondary')
+
+    target_element.classList.remove('d-none')
+    target_sibling_element.classList.add('d-none')
 }

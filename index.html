@@ -17,6 +17,57 @@
 </head>
 
 <body>
+    <div class="modal fade" id="remove-book-modal" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="remove-book-modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="remove-book-modalLabel">Ingin menghapus buku?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex h-100 ">
+                        <figcaption
+                            class="w-25 m-1 rounded-1 overflow-hidden  bg-body-tertiary d-flex align-items-center justify-content-center ">
+                            <img src="$" alt="Cover buku ${title}" class="w-100"
+                                onerror="this.src='./app/assets/default.png'">
+                        </figcaption>
+                        <div class="d-flex flex-column gap-2 flex-grow-1 ">
+                            <div class="m-1 px-1 h-100 d-flex flex-column row-gap-2 ">
+                                <p class="m-0 row row-cols-2 ">
+                                    <span style="width: 100px;font-weight: bold;">Judul</span><span
+                                        id="title-delete"></span>
+                                </p>
+                                <p class="m-0 row row-cols-2 ">
+                                    <span style="width: 100px;font-weight: bold;">Author</span><span
+                                        id="author-delete"></span>
+                                </p>
+                                <p class="m-0 row row-cols-2 ">
+                                    <span style="width: 100px;font-weight: bold;">Tahun</span><span
+                                        id="year-delete"></span>
+                                </p>
+                                <p class="m-0 row row-cols-2 ">
+                                    <span style="width: 100px;font-weight: bold;">Status</span><span
+                                        id="isComplete-delete"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger " data-book-id=""
+                        onclick="deleteBookEventModal(this)">Hapus</button>
+                </div>
+                <script>
+                    function deleteBookEventModal(element) {
+                        deleteBookById(element.getAttribute('data-book-id'))
+                        window.location.reload()
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="update-book-modal" tabindex="-1" aria-labelledby="update-book-modalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -108,7 +159,7 @@
                         <div>
                             <div class="input-group input-group-sm">
                                 <i class="bi bi-image input-group-text " for="img-thumbnail-url"></i>
-                                <input required type="text" name="cover" id="cover" class="form-control"
+                                <input type="text" name="cover" id="cover" class="form-control"
                                     placeholder="Masukkan url cover buku">
                                 <i class="bi bi-link-45deg input-group-text" for="cover"></i>
                             </div>
@@ -153,46 +204,16 @@
         </header>
         <main class="d-flex  flex-column mt-4">
             <div class="sub-nav d-flex justify-content-around mb-2">
-                <div class="border-bottom border-2 "><span id="uncomplete-book-value">0</span>&nbsp;Belum dibaca</div>
-                <div class="border-bottom border-2 "><span id="complete-book-value">0</span>&nbsp;Telah dibaca</div>
-            </div>
-            <div class="mx-2 rounded-3 shadow-lg bookself">
-                <div class="complete-book-container"></div>
-                <div class="uncomplete-book-container">
-                    <div id="testing">
-                        <div class="book-card rounded-2 m-2 p-2 d-flex flex-column row-gap-2">
-                            <div class="d-flex h-100 ">
-                                <figcaption
-                                    class="w-25 m-1 rounded-1  bg-body-tertiary d-flex align-items-center justify-content-center ">
-                                    <img src="${cover !== '' ? cover : './app/assets/default.png'}"
-                                        alt="Cover buku ${title}" class="w-100"
-                                        onerror="this.src = './app/assets/default.png'">
-                                </figcaption>
-                                <div class="d-flex flex-column gap-2 flex-grow-1 ">
-                                    <div class="m-1 px-1 h-100 ">
-                                        <h5 class="m-0 mb-1 ">${title}</h5>
-                                        <i class="m-0">Ditulis oleh: ${author}</i>
-                                        <p class="m-0">Terbit tahun: ${year}</p>
-                                    </div>
-                                    <div class="d-flex gap-2 justify-content-end">
-                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#update-book-modal"
-                                            data-book-json='${JSON.stringify(this.bookCardDatas)}'
-                                            onclick="setupUpdateModal(this)">
-                                            <i class="bi bi-pencil-square"></i>
-                                            <span>Ubah</span>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-danger " data-toggle="modal"
-                                            data-target="#delete-modal" data-book-id="${id}">
-                                            <i class="bi bi-trash"></i>
-                                            <span>Hapus</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="border-bottom border-2 px-2" ry-target-bookshelf=".uncomplete-book-container"
+                    onclick="setBookshelfVisibility(this)"><span id="uncomplete-book-value">0</span>&nbsp;Belum dibaca
                 </div>
+                <div class="border-bottom border-2 px-2 " ry-target-bookshelf=".complete-book-container"
+                    onclick="setBookshelfVisibility(this)"><span id="complete-book-value">0</span>&nbsp;Telah dibaca
+                </div>
+            </div>
+            <div class="mx-2 mx-sm-4 rounded-3 shadow-lg bookshelf p-sm-2 p-md-3">
+                <div class="complete-book-container d-none"></div>
+                <div class="uncomplete-book-container d-none"></div>
             </div>
         </main>
     </div>

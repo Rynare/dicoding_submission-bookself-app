@@ -1,40 +1,19 @@
-:root {
-    ---width-sm: 576px;
-    ---width-md: 768px;
-    ---width-lg: 992px;
-    ---width-xl: 1200px;
-    ---width-xxl: 1400px;
-
-    ---color-midnight-blue: #282D34;
-    ---color-charcoal: #00101D;
-    ---color-black-stone: #1C1D24;
-    ---color-twilight-noir: #242424;
-    ---color-slate-grey: #333333;
-    ---color-shadow-slate: #1A1A1A;
-
-    ---header-bg-color: #0099CC;
-    ---header-accent-color: #E6E6FA;
-    ---body-bg-color: #F5F5F5;
-    ---body-text-color: #333333;
-    ---body-anchor-color: #336699;
-    ---aside-bg-color: #E6E6FA;
-    ---aside-border-color: #336699;
-
-    ---height-without-content-mobile: 157px - 10px;
-    ---height-without-content-tablet: 112px - 20px;
-}
+@import url(./rootVar.css);
 
 .complete-book-container,
 .uncomplete-book-container {
-    max-height: calc(100vh - var(---height-without-content-mobile));
+    height: calc(100vh - var(---height-without-content-mobile));
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-content: start;
 }
 
 .book-card {
     height: 150px;
     min-width: 330px;
+    max-width: 440px;
     background-color: var(---aside-bg-color);
     flex-grow: 1 !important;
 }
@@ -42,4 +21,20 @@
 .book-card figcaption {
     max-width: 80px;
     max-height: 120px;
+}
+
+@media screen and (min-width: 380px) {
+
+    .complete-book-container,
+    .uncomplete-book-container {
+        height: calc(100vh - var(---height-without-content-tablet) - 40px) !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    .complete-book-container,
+    .uncomplete-book-container {
+        height: calc(100vh - var(---height-without-content-tablet)) !important;
+    }
 }
