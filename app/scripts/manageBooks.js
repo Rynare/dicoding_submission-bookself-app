@@ -14,7 +14,7 @@ function getBooks() {
 function addBook(bookData) {
     const { title, author, year, isComplete, cover } = bookData
     if (isEmpty(title, author, year, isComplete)) {
-        alert('kocak')
+        showSwal('error', 'Data yang kammu masukkan kosong!')
         return false
     }
     const books = getBooks();
@@ -33,6 +33,7 @@ function addBook(bookData) {
 
 function isEmpty(...params) {
     for (let param of params) {
+
         if (param === '' || param === null || param === undefined) {
             return true;
         }

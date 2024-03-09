@@ -35,7 +35,7 @@ function runNewBookSubmitEvent() {
         const formData = new FormData(newBookForm, newBookFormSubmitBtn)
         const { title, author, year, isComplete, cover } = getAllFormData(formData);
 
-        if (!isImageUrl(cover)) {
+        if (!isImageUrl(cover) && !isEmpty(cover)) {
             if (!confirm('Data yang kamu masukkan bukan sebuah gambar.\nKLIK "OK" untuk tetap menyimpan URL')) {
                 return
             }
@@ -139,8 +139,8 @@ function runUpdateBookSubmitEvent() {
         const formData = new FormData(updateBookForm, updateBookFormSubmitBtn)
         const { id, title, author, year, isComplete, cover } = getAllFormData(formData);
 
-        if (!isImageUrl(cover)) {
-            if (!confirm('Data yang kamu masukkan bukan sebuah gambar.\nKLIK "OK" untuk tetap menyimpan URL')) {
+        if (!isImageUrl(cover) && !isEmpty(cover)) {
+            if (!confirm('Data yang kamu masukkan bukan sebuah gambar.\nKLIK "OK" untuk tetap menyimpan URL.')) {
                 return
             }
         }
