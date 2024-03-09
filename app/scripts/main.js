@@ -20,6 +20,11 @@ window.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#complete-book-value').click()
     }
 
+    if (sessionStorage.getItem('showToast') == 'true') {
+        const toastContent = JSON.parse(sessionStorage.getItem('toastContent'))
+        showToast(toastContent.type, toastContent.msg || null)
+    }
+
 })
 
 function runNewBookSubmitEvent() {
@@ -45,6 +50,14 @@ function runNewBookSubmitEvent() {
         })
 
         newBookForm.querySelector('button[type=reset]').click()
+        sessionStorage.setItem('showToast', true)
+        sessionStorage.setItem('toastContent', JSON.stringify(
+            {
+                type: 'success',
+                msg: 'Berhasil menambahkan buku baru, Yeayy!'
+            }
+        ))
+        window.location.reload()
     })
 }
 
@@ -83,7 +96,7 @@ function runSearchBarEvent() {
             const results = datas.datas
 
             if (results.length <= 0) {
-                alert(`Kami tidak dapat menemukan data yang kamu cari!!!`)
+                showSwal('error', 'Data yang kamu cari tidak ada :(')
             } else {
                 unCompleteValue.innerText = datas.uncomplete
                 CompleteValue.innerText = datas.complete
@@ -94,6 +107,7 @@ function runSearchBarEvent() {
                         new bookCard(unCompleteBookself, data).init()
                     }
                 });
+
                 if (sessionStorage.getItem('checkpoint').includes('uncomplete') && datas.uncomplete >= 1) {
                     unCompleteValue.click()
                 } else {
@@ -131,6 +145,14 @@ function runUpdateBookSubmitEvent() {
             'cover': sanitizeInput(cover),
         })
         updateBookForm.querySelector('button[type=reset]').click()
+
+        sessionStorage.setItem('showToast', true)
+        sessionStorage.setItem('toastContent', JSON.stringify(
+            {
+                type: 'success',
+                msg: 'Berhasil mengubah data buku.'
+            }
+        ))
         window.location.reload()
     })
 }
@@ -221,3 +243,34 @@ function isLandscape() {
     return document.body.offsetHeight < document.body.offsetWidth ? true : false
 }
 
+function showToast(type, msg) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    Toast.fire({
+        icon: type,
+        title: msg
+    });
+    sessionStorage.setItem('showToast', false)
+}
+
+function showSwal(type, title, text) {
+    Swal.fire({
+        icon: type,
+        title: title,
+        text: text,
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonColor: "#d33",
+        timer: 2000
+    });
+    sessionStorage.setItem('showSwal', false)
+}
