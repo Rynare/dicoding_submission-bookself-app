@@ -1,7 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     let currentSearchQuery = getQueryParameter('search-book')
 
-
     window.addEventListener('popstate', () => window.location.reload())
 
     runNewBookSubmitEvent()
@@ -51,7 +50,7 @@ function runNewBookSubmitEvent() {
 
         const searchBar = document.querySelector('#search-book')
 
-        if (isEmpty(getQueryParameter('search-book')) || isEmpty(sanitizeInput(searchBar.value))) {
+        if (isEmpty(getQueryParameter('search-book')) || isEmpty(sanitizeInput(searchBar.value)) || (sanitizeInput(title).includes(sanitizeInput(searchBar.value)) || sanitizeInput(title).includes(sanitizeInput(getQueryParameter('search-book'))))) {
             if (isComplete == 'true') {
                 document.querySelector('#complete-book-value').click()
             } else {
@@ -71,7 +70,7 @@ function runNewBookSubmitEvent() {
         for (let listvalue of document.querySelectorAll('[id*=complete-book-value]')) {
             allBooksCount += Number(listvalue.innerText)
         }
-        if (allBooksCount >= 1) {
+        if (allBooksCount >= 1 || sanitizeInput(title).includes(sanitizeInput(searchBar.value)) || sanitizeInput(title).includes(getQueryParameter('search-book'))) {
             window.location.reload()
         } else {
             showToast('success', 'Berhasil menambahkan buku baru, Yeayy!')
@@ -166,7 +165,7 @@ function runUpdateBookSubmitEvent() {
 
         const searchBar = document.querySelector('#search-book')
 
-        if (isEmpty(getQueryParameter('search-book')) || (sanitizeInput(title).includes(sanitizeInput(searchBar.value)) || sanitizeInput(title).includes(sanitizeInput(getQueryParameter('search-book'))))) {
+        if (isEmpty(getQueryParameter('search-book')) || isEmpty(sanitizeInput(searchBar.value)) || (sanitizeInput(title).includes(sanitizeInput(searchBar.value)) || sanitizeInput(title).includes(sanitizeInput(getQueryParameter('search-book'))))) {
             if (isComplete == 'true') {
                 document.querySelector('#complete-book-value').click()
             } else {
