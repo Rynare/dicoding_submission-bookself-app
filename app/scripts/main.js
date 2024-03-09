@@ -11,7 +11,9 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!isEmpty(currentSearchQuery)) {
         document.querySelector('form #search-book').value = currentSearchQuery
     }
-    document.querySelector('header button#search-book-btn').click()
+    if (localStorage.getItem('books') != null) {
+        document.querySelector('header button#search-book-btn').click()
+    }
     if (sessionStorage.getItem('checkpoint') == '.uncomplete-book-container') {
         document.querySelector('#uncomplete-book-value').click()
     } else {
