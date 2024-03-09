@@ -91,7 +91,9 @@
                         </div>
                         <div class="input-group input-group-sm ">
                             <i class="bi bi-patch-check input-group-text" for="year"></i>
-                            <input required type="number" name="year" id="year" class="form-control "
+                            <input required type="number" name="year" onchange="this.value <= 0 ? this.value = '' : ''"
+                                onkeyup="this.value <= 0 ? this.value = '' : ''"
+                                onkeydown="this.value <= 0 ? this.value = '' : ''" id="year" class="form-control "
                                 placeholder="Masukkan tahun rilis">
                         </div>
                         <div class="input-group input-group-sm ">
@@ -145,7 +147,9 @@
                         </div>
                         <div class="input-group input-group-sm ">
                             <i class="bi bi-patch-check input-group-text" for="year"></i>
-                            <input required type="number" name="year" id="year" class="form-control "
+                            <input required type="number" name="year" onchange="this.value <= 0 ? this.value = '' : ''"
+                                onkeyup="this.value <= 0 ? this.value = '' : ''"
+                                onkeydown="this.value <= 0 ? this.value = '' : ''" id="year" class="form-control "
                                 placeholder="Masukkan tahun rilis">
                         </div>
                         <div class="input-group input-group-sm ">
