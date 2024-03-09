@@ -31,10 +31,26 @@
     }
 }
 
+@media screen and (min-width: 480px) {
+
+    .complete-book-container,
+    .uncomplete-book-container {
+        height: calc(100vh - var(---height-without-content-tablet) - 45px) !important;
+    }
+}
+
+@media screen and (min-width: 574px) {
+
+    .complete-book-container,
+    .uncomplete-book-container {
+        height: calc(100vh - var(---height-without-content-tablet) - 80px) !important;
+    }
+}
+
 @media screen and (min-width: 768px) {
 
     .complete-book-container,
     .uncomplete-book-container {
-        height: calc(100vh - var(---height-without-content-tablet)) !important;
+        height: calc(100vh - var(---height-without-content-tablet) - 40px) !important;
     }
 }

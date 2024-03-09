@@ -14,7 +14,8 @@ class bookCard {
                     class="w-25 m-1 rounded-1 overflow-hidden  bg-body-tertiary d-flex align-items-center justify-content-center ">
                     <img src="${cover !== '' ? cover : './app/assets/default.png'}"
                         alt="Cover buku ${title}" class="w-100"
-                        onerror="this.src = './app/assets/default.png'">
+                        onerror="this.src = './app/assets/default.png'" data-bs-toggle="modal"
+                            data-bs-target="#show-image-modal" onclick="document.querySelector('#show-image-modal img').src = this.src">
                 </figcaption>
                 <div class="d-flex flex-column gap-2 flex-grow-1 ">
                     <div class="m-1 px-1 h-100 ">

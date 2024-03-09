@@ -17,7 +17,18 @@
 </head>
 
 <body>
-    <div class="modal fade" id="remove-book-modal" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" data-bs-keyboard="true" id="show-image-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img src="" alt="" style="width: 400px; max-width: 80vw;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="remove-book-modal" data-bs-keyboard="true" tabindex="-1"
         aria-labelledby="remove-book-modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -69,7 +80,7 @@
         </div>
     </div>
     <div class="modal fade" id="update-book-modal" tabindex="-1" aria-labelledby="update-book-modalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-keyboard="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

@@ -216,3 +216,8 @@ function setBookshelfVisibility(element) {
     target_element.classList.remove('d-none')
     target_sibling_element.classList.add('d-none')
 }
+
+function isLandscape() {
+    return document.body.offsetHeight < document.body.offsetWidth ? true : false
+}
+
