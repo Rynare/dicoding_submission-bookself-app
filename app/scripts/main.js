@@ -49,6 +49,16 @@ function runNewBookSubmitEvent() {
             'cover': sanitizeInput(cover),
         })
 
+        const searchBar = document.querySelector('#search-book')
+
+        if (isEmpty(getQueryParameter('search-book')) || isEmpty(sanitizeInput(searchBar.value))) {
+            if (isComplete == 'true') {
+                document.querySelector('#complete-book-value').click()
+            } else {
+                document.querySelector('#uncomplete-book-value').click()
+            }
+        }
+
         newBookForm.querySelector('button[type=reset]').click()
         sessionStorage.setItem('showToast', true)
         sessionStorage.setItem('toastContent', JSON.stringify(
@@ -153,6 +163,16 @@ function runUpdateBookSubmitEvent() {
             'cover': sanitizeInput(cover),
         })
         updateBookForm.querySelector('button[type=reset]').click()
+
+        const searchBar = document.querySelector('#search-book')
+
+        if (isEmpty(getQueryParameter('search-book')) || (sanitizeInput(title).includes(sanitizeInput(searchBar.value)) || sanitizeInput(title).includes(sanitizeInput(getQueryParameter('search-book'))))) {
+            if (isComplete == 'true') {
+                document.querySelector('#complete-book-value').click()
+            } else {
+                document.querySelector('#uncomplete-book-value').click()
+            }
+        }
 
         sessionStorage.setItem('showToast', true)
         sessionStorage.setItem('toastContent', JSON.stringify(
