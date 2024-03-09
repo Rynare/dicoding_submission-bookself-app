@@ -57,7 +57,15 @@ function runNewBookSubmitEvent() {
                 msg: 'Berhasil menambahkan buku baru, Yeayy!'
             }
         ))
-        window.location.reload()
+        let allBooksCount = 0
+        for (let listvalue of document.querySelectorAll('[id*=complete-book-value]')) {
+            allBooksCount += Number(listvalue.innerText)
+        }
+        if (allBooksCount >= 1) {
+            window.location.reload()
+        } else {
+            showToast('success', 'Berhasil menambahkan buku baru, Yeayy!')
+        }
     })
 }
 
