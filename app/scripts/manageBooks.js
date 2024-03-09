@@ -57,7 +57,7 @@ function findCompleteBook(obj = null) {
 
 function findUnCompleteBook(obj = null) {
     const books = obj ?? getBooks();
-    const foundBooks = books.filter(book => (book.isComplete === 'false' || data.isComplete === false));
+    const foundBooks = books.filter(book => (book.isComplete === 'false' || book.isComplete === false));
     return { total: foundBooks.length, datas: foundBooks };
 }
 
